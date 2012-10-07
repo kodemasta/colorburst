@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:frontalmind="http://frontalmind.com" >
+
+    <com.frontalmind.blinklight.SeekBarPreference
+        android:defaultValue="50"
+        android:key="pref_rate"
+        android:max="500"
+        android:summary="@string/pref_rate_summ"
+        android:title="@string/pref_rate_title"
+        frontalmind:min="50"
+        frontalmind:unitsLeft=""
+        frontalmind:unitsRight=" msecs" />
+    
+    <com.frontalmind.blinklight.SeekBarPreference
+        android:defaultValue="50"
+        android:key="pref_block_size"
+        android:max="200"
+        android:summary="@string/pref_block_size_summ"
+        android:title="@string/pref_block_size_title"
+        frontalmind:min="20"
+        frontalmind:unitsLeft=""
+        frontalmind:unitsRight=" pixels" />
+    
+    <com.frontalmind.blinklight.SeekBarPreference
+        android:defaultValue="8"
+        android:key="pref_decay"
+        android:max="64"
+        android:summary="@string/pref_decay_summ"
+        android:title="@string/pref_decay_title"
+        frontalmind:min="2"
+        frontalmind:unitsLeft=""
+        frontalmind:unitsRight=" steps" />
+    
+    <com.frontalmind.blinklight.SeekBarPreference
+        android:defaultValue="0"
+        android:key="pref_threshold"
+        android:max="128"
+        android:summary="@string/pref_threshold_summ"
+        android:title="@string/pref_threshold_title"
+        frontalmind:min="0"
+        frontalmind:unitsLeft=""
+        frontalmind:unitsRight="" />
+    
+ 	<com.frontalmind.blinklight.SeekBarPreference
+        android:defaultValue="2"
+        android:key="pref_padding"
+        android:max="50"
+        android:summary="@string/pref_padding_summ"
+        android:title="@string/pref_padding_title"
+        frontalmind:min="0"
+        frontalmind:unitsLeft=""
+        frontalmind:unitsRight="" />
+
+    <ListPreference
+        android:dialogTitle="@string/color_preference"
+        android:entries="@array/entries_color_preference"
+        android:entryValues="@array/entryvalues_color_preference"
+        android:key="color_preference"
+        android:summary="@string/summary_color_preference"
+        android:title="@string/title_color_preference" 
+        android:defaultValue="All"/>
+
+</PreferenceScreen>
