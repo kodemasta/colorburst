@@ -8,11 +8,14 @@ import java.util.List;
 import java.util.Random;
 import java.util.Timer;
 import java.util.TimerTask;
+import java.util.Vector;
 
 import android.content.Context;
-import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
+import android.graphics.Paint;
+import android.graphics.Point;
+import android.graphics.RectF;
 import android.os.Handler;
 import android.os.Message;
 import android.view.MotionEvent;
@@ -27,11 +30,16 @@ public class BitmapView extends View {
 	private Random random;
 	private int incr, animationRate, viewWidth, viewHeight, blockSize, 
 	numX, numY, offsetX, offsetY, padding, decay, threshold;
-	private List<Bitmap> bitmaps;
+	Vector<Point> grid;
 	private List<Integer> colors;
 	private Timer timer;
 	private boolean toggleAnimate = true;
 	String colorRange;
+	String shape = "rect";
+	Paint paint = new Paint();
+	RectF rect = new RectF();
+	int cornerRadius = 3;
+
 	
 	public BitmapView(Context context) {
 		super(context);
@@ -40,23 +48,22 @@ public class BitmapView extends View {
 		animationRate = 50;
 		decay = 8;
 		threshold = 0;
-		
-		this.setOnTouchListener(new OnTouchListener()
-        {
-            @Override
-            public boolean onTouch(View v, MotionEvent event)
-            {
-            	if (event.getAction() == MotionEvent.ACTION_DOWN){
-               		toggleAnimate = !toggleAnimate;
-               	    enableAnimation(toggleAnimate);
-            	}
-                return true;
-            }
-       });
+		cornerRadius = blockSize/10;
 
-		bitmaps = new LinkedList<Bitmap>();
+		this.setOnTouchListener(new OnTouchListener() {
+			@Override
+			public boolean onTouch(View v, MotionEvent event) {
+				if (event.getAction() == MotionEvent.ACTION_DOWN) {
+					toggleAnimate = !toggleAnimate;
+					enableAnimation(toggleAnimate);
+				}
+				return true;
+			}
+		});
+
 		colors = new LinkedList<Integer>();
-		random = new Random();		
+		grid = new Vector<Point>();
+		random = new Random();
 	}
 	
 	public void enableAnimation(boolean enable){
@@ -126,12 +133,11 @@ public class BitmapView extends View {
 							g = threshold;
 						if (b < threshold)
 							b = threshold;
-						if (b == threshold && g == threshold && b == threshold)
+						if (r == threshold && g == threshold && b == threshold)
 							c = generateColor();
 						else
 							c = Color.rgb(r, g, b);
 						colors.set(j + i * numY, c);
-						BitmapView.this.bitmaps.get(j + i * numY).eraseColor(c);
 					}
 
 					BitmapView.this.invalidate();
@@ -156,7 +162,7 @@ public class BitmapView extends View {
 	 }
 
 	private void createBitmaps(int w, int h) {
-		this.bitmaps.clear();
+		grid.clear();
 		this.viewWidth = w;
 		this.viewHeight = h;
 		this.numX = viewWidth / (blockSize + padding * 2);
@@ -168,12 +174,11 @@ public class BitmapView extends View {
 		this.incr = blockSize + padding * 2;
 
 		for (int i = 0; i < numX; ++i) {
+			 int posX = (i*(incr))+offsetX;
+
 			for (int j = 0; j < numY; ++j) {
-				Bitmap bm = Bitmap.createBitmap(blockSize, blockSize,
-						Bitmap.Config.ARGB_8888);
-				//bm.eraseColor(Color.WHITE);
-				this.bitmaps.add(bm);
-				this.colors.add(Color.WHITE);
+				int posY = (j*(incr))+offsetY;
+				grid.add(new Point(posX, posY));
 			}
 		}
 		
@@ -181,17 +186,34 @@ public class BitmapView extends View {
 	}
 
 	@Override
-	 protected void onDraw(Canvas canvas) {
-		 for (int i = 0; i < numX; ++i){
-			 int posX = (i*(incr))+offsetX;
-			 for (int j = 0; j < numY; ++j){
-				 canvas.drawBitmap(this.bitmaps.get(j + i*numY), 
-						 posX, 
-						 (j*(incr))+offsetY, null);
-			 }
-		 }
-	  	
-	 }
+	protected void onDraw(Canvas canvas) {
+		for (int i = 0; i < numX; ++i) {
+			for (int j = 0; j < numY; ++j) {
+				int incY = i * numY;
+				Point pnt = grid.get(incY + j);
+
+				paint.setColor(this.colors.get(j + incY));
+				if (shape.equals("circle")){
+					int radius = blockSize / 2;
+					canvas.drawCircle(pnt.x + radius, 
+							pnt.y + radius, radius,
+							paint);
+				}else if (shape.equals("rect")){
+					rect.left = pnt.x;
+					rect.right = pnt.x + blockSize;
+					rect.top = pnt.y;
+					rect.bottom = pnt.y + blockSize;
+					canvas.drawRect(rect, paint);
+				} else if (shape.equals("round_rect")){
+					rect.left = pnt.x;
+					rect.right = pnt.x + blockSize;
+					rect.top = pnt.y;
+					rect.bottom = pnt.y + blockSize;					
+					canvas.drawRoundRect(rect, this.cornerRadius, this.cornerRadius, paint);
+				}
+			}
+		}
+	}
 	
 	public void onResume() 
 	{
@@ -212,6 +234,8 @@ public class BitmapView extends View {
 
 	public void setBlockSize(int blockSize) {
 		this.blockSize = blockSize;
+		this.cornerRadius = blockSize/10;
+
 		enableAnimation(false);
 		createBitmaps(this.viewWidth, this.viewHeight);
 		enableAnimation(true);
@@ -235,5 +259,9 @@ public class BitmapView extends View {
 		enableAnimation(false);
 		createBitmaps(this.viewWidth, this.viewHeight);
 		enableAnimation(true);
+	}
+
+	public void setShape(String shape) {
+		this.shape = shape;	
 	}
 }

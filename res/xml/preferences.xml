@@ -60,5 +60,14 @@
         android:summary="@string/summary_color_preference"
         android:title="@string/title_color_preference" 
         android:defaultValue="All"/>
+    
+        <ListPreference
+        android:dialogTitle="@string/pref_shape"
+        android:entries="@array/entries_shape_preference"
+        android:entryValues="@array/entryvalues_shape_preference"
+        android:key="pref_shape"
+        android:summary="@string/summary_shape_preference"
+        android:title="@string/title_shape_preference" 
+        android:defaultValue="rect"/>
 
 </PreferenceScreen>

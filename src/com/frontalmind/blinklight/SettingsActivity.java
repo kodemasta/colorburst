@@ -1,7 +1,5 @@
 package com.frontalmind.blinklight;
 
-import com.frontalmind.blinklight.R;
-
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
 import android.os.Bundle;

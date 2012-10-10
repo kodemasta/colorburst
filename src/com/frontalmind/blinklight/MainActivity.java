@@ -1,37 +1,43 @@
 package com.frontalmind.blinklight;
 
-import com.frontalmind.blinklight.R;
+import java.io.File;
 
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
 import android.os.Bundle;
 import android.os.PowerManager;
 import android.preference.PreferenceManager;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.Window;
+import android.view.WindowManager;
 
-public class MainActivity extends Activity implements OnSharedPreferenceChangeListener {
+public class MainActivity extends Activity {
 
 	protected PowerManager.WakeLock wakeLock;
 	private BitmapView view;
-	//private CheckBox prefCheckBox;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
+
 		super.onCreate(savedInstanceState);
 		final PowerManager pm = (PowerManager) getSystemService(Context.POWER_SERVICE);
 		this.wakeLock = pm.newWakeLock(PowerManager.SCREEN_BRIGHT_WAKE_LOCK,
 				"BlinkLight Tag");
 		this.wakeLock.acquire();
-
-		//prefCheckBox = (CheckBox) findViewById(R.id.prefCheckBox);
+		
+		requestWindowFeature(Window.FEATURE_NO_TITLE);
+	    this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
+	    
 
 		view = new BitmapView(this);
 		setContentView(view);
 		view.enableAnimation(true);
+		
+		loadPref();
+
 	}
 
 	@Override
@@ -40,6 +46,7 @@ public class MainActivity extends Activity implements OnSharedPreferenceChangeLi
 		return true;
 	}
 
+	
 	@Override
 	protected void onDestroy() {
 		this.wakeLock.release();
@@ -49,8 +56,6 @@ public class MainActivity extends Activity implements OnSharedPreferenceChangeLi
 	@Override
 	protected void onResume() {
 		super.onResume();
-		PreferenceManager.getDefaultSharedPreferences(this).registerOnSharedPreferenceChangeListener(this);
-
 		loadPref();
 		
 	}
@@ -58,7 +63,8 @@ public class MainActivity extends Activity implements OnSharedPreferenceChangeLi
 	@Override
 	protected void onPause() {
 		super.onPause();
-		PreferenceManager.getDefaultSharedPreferences(this).unregisterOnSharedPreferenceChangeListener(this);
+		SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+		sharedPreferences.edit().commit();
 
 		this.view.onPause();
 	}
@@ -111,16 +117,10 @@ public class MainActivity extends Activity implements OnSharedPreferenceChangeLi
 		
 		int padding = sharedPreferences.getInt("pref_padding", 2);
 		this.view.setPadding(padding);
-
-	}
-
-	@Override
-	public void onSharedPreferenceChanged(SharedPreferences sharedPreferences,
-			String key) {
-		if (key.equals("pref_rate")){
-			int animationRate = sharedPreferences.getInt("pref_rate", 1000);
-			this.view.setRate(animationRate);
-		}
 		
+		String shape = sharedPreferences.getString("pref_shape", "rect");
+		this.view.setShape(shape);
+		
+		sharedPreferences.edit().commit();
 	}
 }
