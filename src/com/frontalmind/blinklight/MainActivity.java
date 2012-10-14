@@ -1,7 +1,5 @@
 package com.frontalmind.blinklight;
 
-import java.io.File;
-
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
