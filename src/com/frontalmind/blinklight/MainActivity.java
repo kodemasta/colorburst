@@ -15,7 +15,8 @@ import android.view.WindowManager;
 public class MainActivity extends Activity {
 
 	protected PowerManager.WakeLock wakeLock;
-	private BitmapView view;
+	private ColorGridView colorGridView;
+	private ColorShapeView colorShapeView;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -30,9 +31,11 @@ public class MainActivity extends Activity {
 	    this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
 	    
 
-		view = new BitmapView(this);
-		setContentView(view);
-		view.enableAnimation(true);
+		colorGridView = new ColorGridView(this);
+		colorShapeView = new ColorShapeView(this);
+		//setContentView(colorShapeView);
+		setContentView(colorGridView);
+		colorGridView.enableAnimation(true);
 		
 		loadPref();
 
@@ -64,7 +67,8 @@ public class MainActivity extends Activity {
 		SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
 		sharedPreferences.edit().commit();
 
-		this.view.onPause();
+		if (this.colorGridView != null)
+			this.colorGridView.onPause();
 	}
 
 	@Override
@@ -99,25 +103,36 @@ public class MainActivity extends Activity {
 				.getDefaultSharedPreferences(this);
 
 		int animationRate = sharedPreferences.getInt("pref_rate", 50);
-		this.view.setRate(animationRate);
+		if (this.colorGridView != null)
+		this.colorGridView.setRate(animationRate);
 		
 		int blockSize = sharedPreferences.getInt("pref_block_size", 50);
-		this.view.setBlockSize(blockSize);
+		if (this.colorGridView != null)
+		this.colorGridView.setBlockSize(blockSize);
 		
 		String colorRange = sharedPreferences.getString("color_preference", "All");
-		this.view.setColorRange(colorRange);
+		if (this.colorGridView != null)
+			this.colorGridView.setColorRange(colorRange);
 		
 		int decayStep = sharedPreferences.getInt("pref_decay", 8);
-		this.view.setDecayStep(decayStep);
+		if (this.colorGridView != null)
+			this.colorGridView.setDecayStep(decayStep);
+	
+		int strokeWidth = sharedPreferences.getInt("pref_stroke_width", 3);
+		if (this.colorGridView != null)
+			this.colorGridView.setStrokeWidth(strokeWidth);
 		
 		int threshold = sharedPreferences.getInt("pref_threshold", 0);
-		this.view.setThreshold(threshold);
+		if (this.colorGridView != null)
+			this.colorGridView.setThreshold(threshold);
 		
 		int padding = sharedPreferences.getInt("pref_padding", 2);
-		this.view.setPadding(padding);
+		if (this.colorGridView != null)
+			this.colorGridView.setPadding(padding);
 		
 		String shape = sharedPreferences.getString("pref_shape", "rect");
-		this.view.setShape(shape);
+		if (this.colorGridView != null)
+			this.colorGridView.setShape(shape);
 		
 		sharedPreferences.edit().commit();
 	}

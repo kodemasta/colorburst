@@ -1,7 +1,5 @@
 package com.frontalmind.blinklight;
 
-import com.frontalmind.blinklight.R;
-
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.preference.Preference;

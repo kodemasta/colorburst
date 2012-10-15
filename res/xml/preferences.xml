@@ -1,16 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:frontalmind="http://frontalmind.com" >
-
-    <com.frontalmind.blinklight.SeekBarPreference
-        android:defaultValue="50"
-        android:key="pref_rate"
-        android:max="500"
-        android:summary="@string/pref_rate_summ"
-        android:title="@string/pref_rate_title"
-        frontalmind:min="50"
-        frontalmind:unitsLeft=""
-        frontalmind:unitsRight=" msecs" />
+    <ListPreference
+        android:dialogTitle="@string/color_preference"
+        android:entries="@array/entries_color_preference"
+        android:entryValues="@array/entryvalues_color_preference"
+        android:key="color_preference"
+        android:summary="@string/summary_color_preference"
+        android:title="@string/title_color_preference" 
+        android:defaultValue="All"/>
+    
+	<ListPreference
+        android:dialogTitle="@string/pref_shape"
+        android:entries="@array/entries_shape_preference"
+        android:entryValues="@array/entryvalues_shape_preference"
+        android:key="pref_shape"
+        android:summary="@string/summary_shape_preference"
+        android:title="@string/title_shape_preference" 
+        android:defaultValue="rect"/>
     
     <com.frontalmind.blinklight.SeekBarPreference
         android:defaultValue="50"
@@ -21,6 +28,16 @@
         frontalmind:min="20"
         frontalmind:unitsLeft=""
         frontalmind:unitsRight=" pixels" />
+    
+	<com.frontalmind.blinklight.SeekBarPreference
+        android:defaultValue="50"
+        android:key="pref_rate"
+        android:max="500"
+        android:summary="@string/pref_rate_summ"
+        android:title="@string/pref_rate_title"
+        frontalmind:min="50"
+        frontalmind:unitsLeft=""
+        frontalmind:unitsRight=" msecs" />
     
     <com.frontalmind.blinklight.SeekBarPreference
         android:defaultValue="8"
@@ -50,24 +67,16 @@
         android:title="@string/pref_padding_title"
         frontalmind:min="0"
         frontalmind:unitsLeft=""
-        frontalmind:unitsRight="" />
+        frontalmind:unitsRight=" pixels" />
 
-    <ListPreference
-        android:dialogTitle="@string/color_preference"
-        android:entries="@array/entries_color_preference"
-        android:entryValues="@array/entryvalues_color_preference"
-        android:key="color_preference"
-        android:summary="@string/summary_color_preference"
-        android:title="@string/title_color_preference" 
-        android:defaultValue="All"/>
-    
-        <ListPreference
-        android:dialogTitle="@string/pref_shape"
-        android:entries="@array/entries_shape_preference"
-        android:entryValues="@array/entryvalues_shape_preference"
-        android:key="pref_shape"
-        android:summary="@string/summary_shape_preference"
-        android:title="@string/title_shape_preference" 
-        android:defaultValue="rect"/>
+ 	 <com.frontalmind.blinklight.SeekBarPreference
+        android:defaultValue="3"
+        android:key="pref_stroke_width"
+        android:max="50"
+        android:summary="@string/pref_stroke_width_summ"
+        android:title="@string/pref_stroke_width_title"
+        frontalmind:min="0"
+        frontalmind:unitsLeft=""
+        frontalmind:unitsRight=" pixels" />
 
 </PreferenceScreen>
