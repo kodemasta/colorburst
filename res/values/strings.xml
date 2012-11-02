@@ -1,19 +1,15 @@
 <resources>
     <string name="app_name">Color Burst</string>
-    <string name="hello_world">Hello world!</string>
     <string name="menu_settings">Settings</string>
     <string name="title_activity_main">Color Burst</string>
     <string name="title_activity_preference">PreferenceActivity</string>
-    <string name="pref_sync">pref sync</string>
-    <string name="pref_sync_summ">pref sync summ</string>
     <string name="title_activity_settings">SettingsActivity</string>
-    <string name="pref_rate">pref_rate</string>
-    <string name="pref_rate_summ">sets rate for cell color decay</string>
-    <string name="pref_rate_title">Brightness Decay Rate</string>
-    <string name="pref_block_size_summ">sets cell width and height</string>
+    <string name="pref_rate_summ">cell color decay animation period </string>
+    <string name="pref_rate_title">Animation Rate</string>
+    <string name="pref_block_size_summ">sets cell dimension</string>
     <string name="pref_block_size_title">Cell Dimension</string>
     <string name="color_preference">Cell Colors</string>
-    <string name="summary_color_preference">select desired color range</string>
+    <string name="summary_color_preference">select awesome color range</string>
     <string name="title_color_preference">Cell Color Range</string>
     <string-array name="entries_color_preference">
         <item >All Colors</item>
@@ -35,6 +31,10 @@
         <item >Magenta</item>
         <item >Gray</item>
     </string-array>
+    <string name="pref_fill_alpha_summ">changes cell transparency</string>
+    <string name="pref_fill_alpha_title">Cell Opacity</string>
+    <string name="pref_stroke_alpha_summ">changes cell border transparency</string>
+    <string name="pref_stroke_alpha_title">Border Opacity</string>
     <string name="pref_decay_summ">changes rate at which cell regenerates</string>
     <string name="pref_decay_title">Brightness Decay Step</string>
     <string name="pref_threshold_summ">set minimum brightness level</string>
@@ -45,15 +45,19 @@
     <string name="summary_shape_preference">set shape of cells</string>
     <string name="title_shape_preference">Cell Shape</string>
     <string-array name="entries_shape_preference">
+        <item >Random</item>
         <item >Rectangle</item>
         <item >Rounded Rectangle</item>
         <item >Circle</item>
-    </string-array>
+        <item >Hexagon</item>
+        </string-array>
     <string-array name="entryvalues_shape_preference">
+        <item >random</item>
         <item >rect</item>
         <item >round_rect</item>
         <item >circle</item>
-    </string-array>
-    <string name="pref_stroke_width_title">Cell Border Width</string>
+        <item >hexagon</item>
+        </string-array>
+    <string name="pref_stroke_width_title">Border Width</string>
     <string name="pref_stroke_width_summ">sets width of cell border</string>
 </resources>

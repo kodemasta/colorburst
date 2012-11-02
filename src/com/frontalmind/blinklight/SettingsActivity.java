@@ -10,7 +10,10 @@ public class SettingsActivity extends PreferenceActivity implements OnSharedPref
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        
+        getPreferenceManager().setSharedPreferencesName(MainActivity.SHARED_PREFS_NAME);
         addPreferencesFromResource(R.xml.preferences);
+        getPreferenceManager().getSharedPreferences().registerOnSharedPreferenceChangeListener(this);
         
     }
 

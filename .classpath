@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
-	<classpathentry excluding="com/frontalmind/fractalapp2d/PreferencesActivity.java|com/frontalmind/fractalapp2d/SettingsFragment.java|com/frontalmind/blinklight/PreferencesActivity.java" kind="src" path="src"/>
+	<classpathentry excluding="com/frontalmind/fractalapp2d/PreferencesActivity.java|com/frontalmind/fractalapp2d/SettingsFragment.java|com/frontalmind/blinklight/PreferencesActivity.java|com/frontalmind/blinklight/ColorGrid.java|com/frontalmind/blinklight/StrokeAndFillDrawable.java|com/frontalmind/blinklight/ColorShapeView.java" kind="src" path="src"/>
 	<classpathentry kind="src" path="gen"/>
 	<classpathentry kind="con" path="com.android.ide.eclipse.adt.ANDROID_FRAMEWORK"/>
 	<classpathentry kind="con" path="com.android.ide.eclipse.adt.LIBRARIES"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/FrontalMindLib"/>
 	<classpathentry kind="output" path="bin/classes"/>
 </classpath>

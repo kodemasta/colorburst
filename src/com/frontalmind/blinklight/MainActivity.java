@@ -6,17 +6,20 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.PowerManager;
-import android.preference.PreferenceManager;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.Window;
 import android.view.WindowManager;
 
-public class MainActivity extends Activity {
+public class MainActivity extends Activity implements SharedPreferences.OnSharedPreferenceChangeListener{
+
+	public static final String SHARED_PREFS_NAME = "com.frontalmind.colorburst";
 
 	protected PowerManager.WakeLock wakeLock;
 	private ColorGridView colorGridView;
-	private ColorShapeView colorShapeView;
+	private SharedPreferences mPrefs = null;
+
+	//private ColorShapeView colorShapeView;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -30,9 +33,11 @@ public class MainActivity extends Activity {
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
 	    this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
 	    
+        mPrefs = MainActivity.this.getSharedPreferences(SHARED_PREFS_NAME, 0);
+        mPrefs.registerOnSharedPreferenceChangeListener(this);
 
 		colorGridView = new ColorGridView(this);
-		colorShapeView = new ColorShapeView(this);
+		//colorShapeView = new ColorShapeView(this);
 		//setContentView(colorShapeView);
 		setContentView(colorGridView);
 		colorGridView.enableAnimation(true);
@@ -51,6 +56,7 @@ public class MainActivity extends Activity {
 	@Override
 	protected void onDestroy() {
 		this.wakeLock.release();
+        mPrefs.unregisterOnSharedPreferenceChangeListener(this);
 		super.onDestroy();
 	}
 
@@ -64,8 +70,7 @@ public class MainActivity extends Activity {
 	@Override
 	protected void onPause() {
 		super.onPause();
-		SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
-		sharedPreferences.edit().commit();
+		mPrefs.edit().commit();
 
 		if (this.colorGridView != null)
 			this.colorGridView.onPause();
@@ -99,41 +104,53 @@ public class MainActivity extends Activity {
 	}
 
 	private void loadPref() {
-		SharedPreferences sharedPreferences = PreferenceManager
-				.getDefaultSharedPreferences(this);
 
-		int animationRate = sharedPreferences.getInt("pref_rate", 50);
+		int animationRate = mPrefs.getInt("pref_rate", 50);
 		if (this.colorGridView != null)
 		this.colorGridView.setRate(animationRate);
 		
-		int blockSize = sharedPreferences.getInt("pref_block_size", 50);
+		int blockSize = mPrefs.getInt("pref_block_size", 50);
 		if (this.colorGridView != null)
 		this.colorGridView.setBlockSize(blockSize);
 		
-		String colorRange = sharedPreferences.getString("color_preference", "All");
+		String colorRange = mPrefs.getString("color_preference", "All");
 		if (this.colorGridView != null)
 			this.colorGridView.setColorRange(colorRange);
 		
-		int decayStep = sharedPreferences.getInt("pref_decay", 8);
+		int decayStep = mPrefs.getInt("pref_decay", 8);
 		if (this.colorGridView != null)
 			this.colorGridView.setDecayStep(decayStep);
 	
-		int strokeWidth = sharedPreferences.getInt("pref_stroke_width", 3);
+		int strokeWidth = mPrefs.getInt("pref_stroke_width", 2);
 		if (this.colorGridView != null)
 			this.colorGridView.setStrokeWidth(strokeWidth);
 		
-		int threshold = sharedPreferences.getInt("pref_threshold", 0);
+		int threshold = mPrefs.getInt("pref_threshold", 0);
 		if (this.colorGridView != null)
 			this.colorGridView.setThreshold(threshold);
 		
-		int padding = sharedPreferences.getInt("pref_padding", 2);
+		int padding = mPrefs.getInt("pref_padding", 2);
 		if (this.colorGridView != null)
 			this.colorGridView.setPadding(padding);
 		
-		String shape = sharedPreferences.getString("pref_shape", "rect");
+		String shape = mPrefs.getString("pref_shape", "rect");
 		if (this.colorGridView != null)
 			this.colorGridView.setShape(shape);
+
+		int fillAlpha = mPrefs.getInt("pref_fill_alpha", 255);
+		if (this.colorGridView != null)
+			this.colorGridView.setFillAlpha(fillAlpha);
+
+		int strokeAlpha = mPrefs.getInt("pref_stroke_alpha", 255);
+		if (this.colorGridView != null)
+			this.colorGridView.setStrokeAlpha(strokeAlpha);
+
+		mPrefs.edit().commit();
+	}
+
+	@Override
+	public void onSharedPreferenceChanged(SharedPreferences arg0, String arg1) {
+		loadPref();
 		
-		sharedPreferences.edit().commit();
 	}
 }
