@@ -41,9 +41,7 @@ public class MainActivity extends Activity implements SharedPreferences.OnShared
 		//setContentView(colorShapeView);
 		setContentView(colorGridView);
 		colorGridView.enableAnimation(true);
-		
 		loadPref();
-
 	}
 
 	@Override
@@ -133,7 +131,7 @@ public class MainActivity extends Activity implements SharedPreferences.OnShared
 		if (this.colorGridView != null)
 			this.colorGridView.setPadding(padding);
 		
-		String shape = mPrefs.getString("pref_shape", "rect");
+		String shape = mPrefs.getString("pref_shape", "hexagon");
 		if (this.colorGridView != null)
 			this.colorGridView.setShape(shape);
 
@@ -144,6 +142,8 @@ public class MainActivity extends Activity implements SharedPreferences.OnShared
 		int strokeAlpha = mPrefs.getInt("pref_stroke_alpha", 255);
 		if (this.colorGridView != null)
 			this.colorGridView.setStrokeAlpha(strokeAlpha);
+
+		this.colorGridView.createGrid();
 
 		mPrefs.edit().commit();
 	}

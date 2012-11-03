@@ -32,7 +32,7 @@
           </PreferenceCategory>
     <PreferenceCategory android:title="SHAPE" >
         <ListPreference
-            android:defaultValue="random"
+            android:defaultValue="hexagon"
             android:dialogTitle="@string/pref_shape"
             android:entries="@array/entries_shape_preference"
             android:entryValues="@array/entryvalues_shape_preference"

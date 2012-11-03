@@ -6,14 +6,14 @@ package com.frontalmind.blinklight;
 import java.util.Timer;
 import java.util.TimerTask;
 
-import com.frontalmind.ColorGrid;
-
 import android.content.Context;
 import android.graphics.Canvas;
 import android.os.Handler;
 import android.os.Message;
 import android.view.MotionEvent;
 import android.view.View;
+
+import com.frontalmind.ColorGrid;
 
 /**
  * @author bob
@@ -137,7 +137,9 @@ public class ColorGridView extends View {
 
 	public void setBlockSize(int blockSize) {
 		colorGrid.setBlockSize(blockSize);
-
+	}
+	
+	public void createGrid() {
 		enableAnimation(false);
 		colorGrid.createGrid(this.viewWidth, this.viewHeight);
 		enableAnimation(true);
@@ -145,9 +147,6 @@ public class ColorGridView extends View {
 
 	public void setColorRange(String colorRange) {
 		colorGrid.setColorRange(colorRange);
-		enableAnimation(false);
-		colorGrid.createGrid(this.viewWidth, this.viewHeight);
-		enableAnimation(true);
 	}
 
 	public void setDecayStep(int decayStep) {
@@ -160,23 +159,14 @@ public class ColorGridView extends View {
 
 	public void setPadding(int padding) {
 		colorGrid.setPadding(padding);
-		enableAnimation(false);
-		colorGrid.createGrid(this.viewWidth, this.viewHeight);
-		enableAnimation(true);
 	}
 
 	public void setShape(String shape) {
 		colorGrid.setShape(shape);
-		enableAnimation(false);
-		colorGrid.createGrid(this.viewWidth, this.viewHeight);
-		enableAnimation(true);
 	}
 
 	public void setStrokeWidth(int strokeWidth) {
 		colorGrid.setStrokeWidth(strokeWidth);
-		enableAnimation(false);
-		colorGrid.createGrid(this.viewWidth, this.viewHeight);
-		enableAnimation(true);
 	}
 
 	public void setFillAlpha(int fillAlpha) {
