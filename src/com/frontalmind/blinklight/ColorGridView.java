@@ -26,6 +26,7 @@ public class ColorGridView extends View {
 	private int  animationRate;
 	private Timer timer;
 	private int viewWidth, viewHeight;
+	private boolean enableDraw = false;
 
 
 	
@@ -39,18 +40,17 @@ public class ColorGridView extends View {
 			@Override
 			public boolean onTouch(View v, MotionEvent event) {
 				if (event.getAction() == MotionEvent.ACTION_UP){
+					enableDraw = false;
+					enableAnimation(true);
 					//colorGrid.setLocked
 					//for (StrokeAndFillDrawable shape : shapes)
 						//shape.setLock(false);
+				}	
+				else if (event.getAction() == MotionEvent.ACTION_DOWN) {
+					enableDraw = true;
+					enableAnimation(false);
 				}
-
-					
-				if (event.getAction() == MotionEvent.ACTION_DOWN) {//||
-						//event.getAction() == MotionEvent.ACTION_MOVE) {
-					if (timer == null)
-						enableAnimation(true);
-					else
-						enableAnimation(false);
+				else if (event.getAction() == MotionEvent.ACTION_MOVE) {
 // drawing code on hold for now
 //					float posX = event.getX();
 //					float posY = event.getY();
@@ -140,9 +140,7 @@ public class ColorGridView extends View {
 	}
 	
 	public void createGrid() {
-		enableAnimation(false);
 		colorGrid.createGrid(this.viewWidth, this.viewHeight);
-		enableAnimation(true);
 	}
 
 	public void setColorRange(String colorRange) {

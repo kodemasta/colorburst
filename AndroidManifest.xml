@@ -1,11 +1,11 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.frontalmind.blinklight"
-    android:versionCode="9"
-    android:versionName="1.51">
+    android:versionCode="11"
+    android:versionName="1.61">
 
     <uses-sdk
         android:minSdkVersion="8"
-        android:targetSdkVersion="15" />
+        android:targetSdkVersion="10" />
 
     <uses-permission android:name="android.permission.WAKE_LOCK" />
  
@@ -28,6 +28,11 @@
             android:name=".SettingsActivity"
             android:label="@string/title_activity_settings">
         </activity>
+        
+        <activity android:name=".preference.FragmentPreferences"
+          	android:label="@string/fragment_preferences"
+          	android:enabled="@bool/atLeastHoneycomb">
+   		</activity>
         
     </application>
 

@@ -46,6 +46,7 @@ public class MainActivity extends Activity implements SharedPreferences.OnShared
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
+		super.onCreateOptionsMenu(menu);
 		getMenuInflater().inflate(R.menu.activity_main, menu);
 		return true;
 	}
@@ -102,14 +103,14 @@ public class MainActivity extends Activity implements SharedPreferences.OnShared
 	}
 
 	private void loadPref() {
-
+		this.colorGridView.enableAnimation(false);
 		int animationRate = mPrefs.getInt("pref_rate", 50);
 		if (this.colorGridView != null)
-		this.colorGridView.setRate(animationRate);
+			this.colorGridView.setRate(animationRate);
 		
 		int blockSize = mPrefs.getInt("pref_block_size", 50);
 		if (this.colorGridView != null)
-		this.colorGridView.setBlockSize(blockSize);
+			this.colorGridView.setBlockSize(blockSize);
 		
 		String colorRange = mPrefs.getString("color_preference", "All");
 		if (this.colorGridView != null)
@@ -143,9 +144,10 @@ public class MainActivity extends Activity implements SharedPreferences.OnShared
 		if (this.colorGridView != null)
 			this.colorGridView.setStrokeAlpha(strokeAlpha);
 
-		this.colorGridView.createGrid();
 
 		mPrefs.edit().commit();
+		this.colorGridView.createGrid();
+		this.colorGridView.enableAnimation(true);
 	}
 
 	@Override
