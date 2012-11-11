@@ -37,8 +37,6 @@ public class MainActivity extends Activity implements SharedPreferences.OnShared
         mPrefs.registerOnSharedPreferenceChangeListener(this);
 
 		colorGridView = new ColorGridView(this);
-		//colorShapeView = new ColorShapeView(this);
-		//setContentView(colorShapeView);
 		setContentView(colorGridView);
 		colorGridView.enableAnimation(true);
 		loadPref();
@@ -115,6 +113,11 @@ public class MainActivity extends Activity implements SharedPreferences.OnShared
 		String colorRange = mPrefs.getString("color_preference", "All");
 		if (this.colorGridView != null)
 			this.colorGridView.setColorRange(colorRange);
+
+		String borderColorRange = mPrefs.getString("border_color_preference", "All");
+		if (this.colorGridView != null)
+			this.colorGridView.setBorderColorRange(borderColorRange);
+
 		
 		int decayStep = mPrefs.getInt("pref_decay", 8);
 		if (this.colorGridView != null)

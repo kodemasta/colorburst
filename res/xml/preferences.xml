@@ -20,6 +20,14 @@
             frontalmind:min="20"
             frontalmind:unitsLeft=""
             frontalmind:unitsRight="" />
+        <ListPreference
+            android:defaultValue="All"
+            android:dialogTitle="@string/border_color_preference"
+            android:entries="@array/entries_color_preference"
+            android:entryValues="@array/entryvalues_color_preference"
+            android:key="border_color_preference"
+            android:summary="@string/summary_color_preference"
+            android:title="@string/title_border_color_preference" />
           <com.frontalmind.SeekBarPreference
             android:defaultValue="50"
             android:key="pref_stroke_alpha"

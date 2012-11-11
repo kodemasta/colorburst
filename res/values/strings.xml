@@ -13,7 +13,9 @@
     <string name="pref_block_size_summ">sets cell dimension</string>
     <string name="pref_block_size_title">Cell Dimension</string>
     <string name="color_preference">Cell Colors</string>
+    <string name="border_color_preference">Cell Border Colors</string>
     <string name="summary_color_preference">select awesome color range</string>
+    <string name="title_border_color_preference">Border Color Range</string>
     <string name="title_color_preference">Cell Color Range</string>
     <string-array name="entries_color_preference">
         <item >All Colors</item>
@@ -53,7 +55,8 @@
         <item >Rectangle</item>
         <item >Rounded Rectangle</item>
         <item >Circle</item>
-        <item >Hexagon</item>
+        <item >Honeycomb</item>
+        <item >Star</item>
         </string-array>
     <string-array name="entryvalues_shape_preference">
         <item >random</item>
@@ -61,6 +64,7 @@
         <item >round_rect</item>
         <item >circle</item>
         <item >hexagon</item>
+        <item >star</item>
         </string-array>
     <string name="pref_stroke_width_title">Border Width</string>
     <string name="pref_stroke_width_summ">sets width of cell border</string>

@@ -27,8 +27,6 @@ public class ColorGridView extends View {
 	private Timer timer;
 	private int viewWidth, viewHeight;
 	private boolean enableDraw = false;
-
-
 	
 	public ColorGridView(Context context) {
 		super(context);
@@ -40,15 +38,15 @@ public class ColorGridView extends View {
 			@Override
 			public boolean onTouch(View v, MotionEvent event) {
 				if (event.getAction() == MotionEvent.ACTION_UP){
-					enableDraw = false;
-					enableAnimation(true);
+					//enableDraw = false;
+					//enableAnimation(true);
 					//colorGrid.setLocked
 					//for (StrokeAndFillDrawable shape : shapes)
 						//shape.setLock(false);
 				}	
 				else if (event.getAction() == MotionEvent.ACTION_DOWN) {
-					enableDraw = true;
-					enableAnimation(false);
+					enableAnimation(enableDraw);
+					enableDraw = !enableDraw;
 				}
 				else if (event.getAction() == MotionEvent.ACTION_MOVE) {
 // drawing code on hold for now
@@ -173,5 +171,9 @@ public class ColorGridView extends View {
 	
 	public void setStrokeAlpha(int strokeAlpha) {
 		colorGrid.setStrokeAlpha(strokeAlpha);
+	}
+
+	public void setBorderColorRange(String borderColorRange) {
+		colorGrid.setBorderColorRange(borderColorRange);
 	}
 }
