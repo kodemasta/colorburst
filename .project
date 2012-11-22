@@ -3,6 +3,7 @@
 	<name>ColorBurst</name>
 	<comment></comment>
 	<projects>
+		<project>FrontalMindLib</project>
 	</projects>
 	<buildSpec>
 		<buildCommand>

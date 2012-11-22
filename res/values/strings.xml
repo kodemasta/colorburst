@@ -36,13 +36,34 @@
         <item >Yellow</item>
         <item >Magenta</item>
         <item >Gray</item>
+    </string-array>    <string-array name="entries_color_preference">
+        <item >All Colors</item>
+        <item >Red</item>
+        <item >Green</item>
+        <item >Blue</item>
+        <item >Blue-Green</item>
+        <item >Red-Green</item>
+        <item >Red-Blue</item>
+        <item >Black-White</item>
     </string-array>
-    <string name="pref_fill_alpha_summ">changes cell transparency</string>
-    <string name="pref_fill_alpha_title">Cell Opacity</string>
-    <string name="pref_stroke_alpha_summ">changes cell border transparency</string>
-    <string name="pref_stroke_alpha_title">Border Opacity</string>
-    <string name="pref_decay_summ">changes rate at which cell regenerates</string>
-    <string name="pref_decay_title">Brightness Decay Step</string>
+    <string-array name="entryvalues_color_preference">
+        <item >All </item>
+        <item >Red</item>
+        <item >Green</item>
+        <item >Blue</item>
+        <item >Cyan</item>
+        <item >Yellow</item>
+        <item >Magenta</item>
+        <item >Gray</item>
+    </string-array>
+    <string name="pref_min_alpha_summ">Sets minimum transparency</string>
+    <string name="pref_min_alpha_title">Minimum Opacity</string>
+    <string name="pref_fill_alpha_summ">Sets cell maximum transparency</string>
+    <string name="pref_fill_alpha_title">Cell Maximum Opacity</string>
+    <string name="pref_stroke_alpha_summ">sets maximum cell border transparency</string>
+    <string name="pref_stroke_alpha_title">Border Maximum Opacity</string>
+    <string name="pref_decay_summ">sets alpha animation max step</string>
+    <string name="pref_decay_title">Alpha Animation Step Size</string>
     <string name="pref_threshold_summ">set minimum brightness level</string>
     <string name="pref_threshold_title">Minimum  Brightness</string>
     <string name="pref_padding_summ">set distance between cells</string>

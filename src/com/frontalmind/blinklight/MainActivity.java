@@ -19,8 +19,6 @@ public class MainActivity extends Activity implements SharedPreferences.OnShared
 	private ColorGridView colorGridView;
 	private SharedPreferences mPrefs = null;
 
-	//private ColorShapeView colorShapeView;
-
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 
@@ -38,7 +36,7 @@ public class MainActivity extends Activity implements SharedPreferences.OnShared
 
 		colorGridView = new ColorGridView(this);
 		setContentView(colorGridView);
-		colorGridView.enableAnimation(true);
+		colorGridView.model.enableAnimation(true);
 		loadPref();
 	}
 
@@ -101,61 +99,59 @@ public class MainActivity extends Activity implements SharedPreferences.OnShared
 	}
 
 	private void loadPref() {
-		this.colorGridView.enableAnimation(false);
+		this.colorGridView.model.enableAnimation(false);
 		int animationRate = mPrefs.getInt("pref_rate", 50);
 		if (this.colorGridView != null)
-			this.colorGridView.setRate(animationRate);
+			this.colorGridView.model.setRate(animationRate);
 		
 		int blockSize = mPrefs.getInt("pref_block_size", 50);
 		if (this.colorGridView != null)
-			this.colorGridView.setBlockSize(blockSize);
+			this.colorGridView.model.setBlockSize(blockSize);
 		
 		String colorRange = mPrefs.getString("color_preference", "All");
 		if (this.colorGridView != null)
-			this.colorGridView.setColorRange(colorRange);
+			this.colorGridView.model.setColorRange(colorRange);
 
 		String borderColorRange = mPrefs.getString("border_color_preference", "All");
 		if (this.colorGridView != null)
-			this.colorGridView.setBorderColorRange(borderColorRange);
+			this.colorGridView.model.setBorderColorRange(borderColorRange);
 
-		
 		int decayStep = mPrefs.getInt("pref_decay", 8);
 		if (this.colorGridView != null)
-			this.colorGridView.setDecayStep(decayStep);
+			this.colorGridView.model.setDecayStep(decayStep);
 	
 		int strokeWidth = mPrefs.getInt("pref_stroke_width", 2);
 		if (this.colorGridView != null)
-			this.colorGridView.setStrokeWidth(strokeWidth);
+			this.colorGridView.model.setStrokeWidth(strokeWidth);
 		
-		int threshold = mPrefs.getInt("pref_threshold", 0);
+		int threshold = mPrefs.getInt("pref_min_alpha", 0);
 		if (this.colorGridView != null)
-			this.colorGridView.setThreshold(threshold);
+			this.colorGridView.model.setThreshold(threshold);
 		
 		int padding = mPrefs.getInt("pref_padding", 2);
 		if (this.colorGridView != null)
-			this.colorGridView.setPadding(padding);
+			this.colorGridView.model.setPadding(padding);
 		
 		String shape = mPrefs.getString("pref_shape", "hexagon");
 		if (this.colorGridView != null)
-			this.colorGridView.setShape(shape);
+			this.colorGridView.model.setShape(shape);
 
-		int fillAlpha = mPrefs.getInt("pref_fill_alpha", 255);
+		int fillAlpha = mPrefs.getInt("pref_fill_alpha", 0);
 		if (this.colorGridView != null)
-			this.colorGridView.setFillAlpha(fillAlpha);
+			this.colorGridView.model.setFillAlpha(fillAlpha);
 
-		int strokeAlpha = mPrefs.getInt("pref_stroke_alpha", 255);
+		int strokeAlpha = mPrefs.getInt("pref_stroke_alpha", 0);
 		if (this.colorGridView != null)
-			this.colorGridView.setStrokeAlpha(strokeAlpha);
+			this.colorGridView.model.setStrokeAlpha(strokeAlpha);
 
 
 		mPrefs.edit().commit();
-		this.colorGridView.createGrid();
-		this.colorGridView.enableAnimation(true);
+		this.colorGridView.model.createGrid();
+		this.colorGridView.model.enableAnimation(true);
 	}
 
 	@Override
 	public void onSharedPreferenceChanged(SharedPreferences arg0, String arg1) {
-		loadPref();
-		
+		loadPref();	
 	}
 }

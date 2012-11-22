@@ -3,37 +3,25 @@
  */
 package com.frontalmind.blinklight;
 
-import java.util.Timer;
-import java.util.TimerTask;
-
 import android.content.Context;
 import android.graphics.Canvas;
-import android.os.Handler;
-import android.os.Message;
 import android.view.MotionEvent;
 import android.view.View;
 
-import com.frontalmind.ColorGrid;
+import com.frontalmind.ColorBurstModel;
+import com.frontalmind.IViewUpdate;
 
 /**
  * @author bob
  *
  */
-public class ColorGridView extends View {
+public class ColorGridView extends View implements IViewUpdate {
 
-	private ColorGrid colorGrid;
-	
-	private int  animationRate;
-	private Timer timer;
-	private int viewWidth, viewHeight;
-	private boolean enableDraw = false;
+	public ColorBurstModel model;
 	
 	public ColorGridView(Context context) {
 		super(context);
-		
-		colorGrid = new ColorGrid();
-		animationRate = 50;
-
+		model = new ColorBurstModel(this);
 		this.setOnTouchListener(new OnTouchListener() {
 			@Override
 			public boolean onTouch(View v, MotionEvent event) {
@@ -45,8 +33,7 @@ public class ColorGridView extends View {
 						//shape.setLock(false);
 				}	
 				else if (event.getAction() == MotionEvent.ACTION_DOWN) {
-					enableAnimation(enableDraw);
-					enableDraw = !enableDraw;
+					model.onTouch();
 				}
 				else if (event.getAction() == MotionEvent.ACTION_MOVE) {
 // drawing code on hold for now
@@ -66,54 +53,19 @@ public class ColorGridView extends View {
 			}
 		});
 
-		setBlockSize(50);
-
+		model.setBlockSize(50);
 	}
 	
-	public void enableAnimation(boolean enable){
-		if (timer != null){
-			timer.cancel();
-			timer.purge();
-			timer = null;
-		}
-		if (enable){
-    		timer = new Timer();
-    		timer.scheduleAtFixedRate(new ColorTask(), 0, animationRate);
-    	}
-	}
-
-	   
-	class ColorTask extends TimerTask {
-		private Handler updateUI = new Handler() {
-			@Override
-			public void dispatchMessage(Message msg) {
-				super.dispatchMessage(msg);
-				colorGrid.updateColors();
-				ColorGridView.this.invalidate();
-			}	
-		};
-
-		@Override
-		public void run() {
-			try {
-				updateUI.sendEmptyMessage(0);
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-		}
-	 };
 
 	 @Override
 	 protected void onSizeChanged(int w, int h, int oldw, int oldh)
 	 {
-		 this.viewWidth = w;
-		 this.viewHeight = h;
-		 colorGrid.createGrid(w,h);
+		 model.sizeChanged(w,h);
 	 }
 
 	@Override
 	protected void onDraw(Canvas canvas) {
-		 colorGrid.draw(canvas);
+		 model.draw(canvas);
 	}
 	
 	public void onResume() 
@@ -121,59 +73,15 @@ public class ColorGridView extends View {
 		//enableAnimation(true);
 	}
 
-
 	public void onPause() 
 	{
-		enableAnimation(false);
+		model.enableAnimation(false);
 	}
 
-	public void setRate(int animationRate) {
-		this.animationRate = animationRate;
-		enableAnimation(true);
-		
+	@Override
+	public void updateView() {
+		this.invalidate();
 	}
 
-	public void setBlockSize(int blockSize) {
-		colorGrid.setBlockSize(blockSize);
-	}
-	
-	public void createGrid() {
-		colorGrid.createGrid(this.viewWidth, this.viewHeight);
-	}
 
-	public void setColorRange(String colorRange) {
-		colorGrid.setColorRange(colorRange);
-	}
-
-	public void setDecayStep(int decayStep) {
-		colorGrid.setDecayStep(decayStep);
-	}
-
-	public void setThreshold(int threshold) {
-		colorGrid.setThreshold(threshold);
-	}
-
-	public void setPadding(int padding) {
-		colorGrid.setPadding(padding);
-	}
-
-	public void setShape(String shape) {
-		colorGrid.setShape(shape);
-	}
-
-	public void setStrokeWidth(int strokeWidth) {
-		colorGrid.setStrokeWidth(strokeWidth);
-	}
-
-	public void setFillAlpha(int fillAlpha) {
-		colorGrid.setFillAlpha(fillAlpha);
-	}
-	
-	public void setStrokeAlpha(int strokeAlpha) {
-		colorGrid.setStrokeAlpha(strokeAlpha);
-	}
-
-	public void setBorderColorRange(String borderColorRange) {
-		colorGrid.setBorderColorRange(borderColorRange);
-	}
 }
