@@ -4,6 +4,8 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.media.MediaPlayer;
+import android.media.MediaPlayer.OnCompletionListener;
 import android.os.Bundle;
 import android.os.PowerManager;
 import android.view.Menu;
@@ -34,7 +36,18 @@ public class MainActivity extends Activity implements SharedPreferences.OnShared
         mPrefs = MainActivity.this.getSharedPreferences(SHARED_PREFS_NAME, 0);
         mPrefs.registerOnSharedPreferenceChangeListener(this);
 
+//	    MediaPlayer mp = MediaPlayer.create(getApplicationContext(),R.raw.effect);
+//	    mp.setOnCompletionListener(new OnCompletionListener() {
+//			@Override
+//			public void onCompletion(MediaPlayer mp) {
+//				mp.stop();
+//				
+//			}
+//		});
+//	    mp.start();
 		colorGridView = new ColorGridView(this);
+//		colorGridView.setSoundEffects(mp);
+
 		setContentView(colorGridView);
 		colorGridView.model.enableAnimation(true);
 		loadPref();
@@ -104,6 +117,15 @@ public class MainActivity extends Activity implements SharedPreferences.OnShared
 		if (this.colorGridView != null)
 			this.colorGridView.model.setRate(animationRate);
 		
+		
+		int percentAlive = mPrefs.getInt("pref_grid_percent", 100);
+		if (this.colorGridView != null)
+			this.colorGridView.model.setGridAlivePercent(percentAlive);
+
+		int birthRate = mPrefs.getInt("pref_reincarnate_rate", 50);
+		if (this.colorGridView != null)
+			this.colorGridView.model.setGridBirthRate(birthRate);
+
 		int blockSize = mPrefs.getInt("pref_block_size", 50);
 		if (this.colorGridView != null)
 			this.colorGridView.model.setBlockSize(blockSize);
@@ -136,11 +158,11 @@ public class MainActivity extends Activity implements SharedPreferences.OnShared
 		if (this.colorGridView != null)
 			this.colorGridView.model.setShape(shape);
 
-		int fillAlpha = mPrefs.getInt("pref_fill_alpha", 0);
+		int fillAlpha = mPrefs.getInt("pref_fill_alpha", 255);
 		if (this.colorGridView != null)
 			this.colorGridView.model.setFillAlpha(fillAlpha);
 
-		int strokeAlpha = mPrefs.getInt("pref_stroke_alpha", 0);
+		int strokeAlpha = mPrefs.getInt("pref_stroke_alpha", 255);
 		if (this.colorGridView != null)
 			this.colorGridView.model.setStrokeAlpha(strokeAlpha);
 

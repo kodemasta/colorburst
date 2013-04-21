@@ -5,6 +5,7 @@ package com.frontalmind.blinklight;
 
 import android.content.Context;
 import android.graphics.Canvas;
+import android.media.MediaPlayer;
 import android.view.MotionEvent;
 import android.view.View;
 
@@ -18,6 +19,7 @@ import com.frontalmind.IViewUpdate;
 public class ColorGridView extends View implements IViewUpdate {
 
 	public ColorBurstModel model;
+	private MediaPlayer mp;
 	
 	public ColorGridView(Context context) {
 		super(context);
@@ -81,6 +83,11 @@ public class ColorGridView extends View implements IViewUpdate {
 	@Override
 	public void updateView() {
 		this.invalidate();
+	}
+
+
+	public void setSoundEffects(MediaPlayer mp) {
+		model.setSoundEffects(mp);	
 	}
 
 

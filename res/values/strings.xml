@@ -8,10 +8,10 @@
     <string name="title_activity_main">Color Burst</string>
     <string name="title_activity_preference">PreferenceActivity</string>
     <string name="title_activity_settings">SettingsActivity</string>
-    <string name="pref_rate_summ">cell color decay animation period </string>
-    <string name="pref_rate_title">Animation Rate</string>
-    <string name="pref_block_size_summ">sets cell dimension</string>
-    <string name="pref_block_size_title">Cell Dimension</string>
+    <string name="pref_rate_summ">cell alpha animation period </string>
+    <string name="pref_rate_title">Alpha Rate</string>
+    <string name="pref_block_size_summ">sets grid resolution</string>
+    <string name="pref_block_size_title">Grid Resolution</string>
     <string name="color_preference">Cell Colors</string>
     <string name="border_color_preference">Cell Border Colors</string>
     <string name="summary_color_preference">select awesome color range</string>
@@ -78,6 +78,7 @@
         <item >Circle</item>
         <item >Honeycomb</item>
         <item >Star</item>
+        <item >Heart</item>
         </string-array>
     <string-array name="entryvalues_shape_preference">
         <item >random</item>
@@ -86,8 +87,15 @@
         <item >circle</item>
         <item >hexagon</item>
         <item >star</item>
+        <item >heart</item>
         </string-array>
     <string name="pref_stroke_width_title">Border Width</string>
     <string name="pref_stroke_width_summ">sets width of cell border</string>
     <string name="fragment_preferences">Fragment Preferences</string>
+    <string name="pref_grid_percent_summ">Percent of grid alive</string>
+    <string name="pref_grid_percent_title">Grid Alive Percent</string>
+    <string name="pref_reincarnate_rate_summ">grid birth rate</string>
+    <string name="pref_reincarnate_rate_title">Grid Birth Rate</string>
+    
+    
 </resources>
